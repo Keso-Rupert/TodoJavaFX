@@ -2,7 +2,7 @@ package dev.kesorupert;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.visual.Swatch;
-import dev.kesorupert.view.AppViewManager;
+import dev.kesorupert.view.TodoView;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -11,7 +11,7 @@ public class TodoApplication extends MobileApplication {
 
     @Override
     public void init() {
-        AppViewManager.registerViews(this);
+        addViewFactory(HOME_VIEW, () -> TodoView.getView());
     }
 
     @Override
