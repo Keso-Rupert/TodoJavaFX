@@ -15,6 +15,7 @@
         <attach.version>4.0.11</attach.version>
         <gluonfx.plugin.version>1.0.3</gluonfx.plugin.version>
         <javafx.plugin.version>0.0.6</javafx.plugin.version>
+        <charm.version>6.0.6</charm.version>
         <mainClassName>dev.kesorupert.TodoApplication</mainClassName>
     </properties>
 
@@ -63,6 +64,11 @@
             <groupId>com.gluonhq</groupId>
             <artifactId>glisten-afterburner</artifactId>
             <version>2.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-cloudlink-client</artifactId>
+            <version>${charm.version}</version>
         </dependency>
     </dependencies>
 

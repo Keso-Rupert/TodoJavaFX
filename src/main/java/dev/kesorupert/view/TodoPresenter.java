@@ -7,11 +7,11 @@ import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import dev.kesorupert.model.Todo;
-import dev.kesorupert.service.TodoService;
+import dev.kesorupert.model.TodoCell;
+import dev.kesorupert.service.TemporaryTodoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 
 public class TodoPresenter {
@@ -21,8 +21,11 @@ public class TodoPresenter {
     @FXML
     private CharmListView<Todo, LocalDate> todoListView;
 
-    @Inject
-    private TodoService todoService;
+    private TemporaryTodoService temporaryTodoService;
+
+    public TodoPresenter(TemporaryTodoService service) {
+        this.temporaryTodoService = service;
+    }
 
     public void initialize(){
         todoView.showingProperty().addListener((obs, oldValue, newValue) -> {
@@ -31,6 +34,9 @@ public class TodoPresenter {
                 appBar.setTitleText("Todo Application");
             }
         });
+
+        todoListView.setItems(temporaryTodoService.getTodoList());
+        todoListView.setCellFactory(cell -> new TodoCell());
 
         todoListView.setPlaceholder(new Label("There are no Todos yet"));
 
