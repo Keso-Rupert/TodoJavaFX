@@ -7,8 +7,10 @@ import com.gluonhq.charm.glisten.control.Dialog;
 import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import dev.kesorupert.model.State;
 import dev.kesorupert.model.Todo;
 import dev.kesorupert.model.TodoCell;
+import dev.kesorupert.model.TodoSelectionModel;
 import dev.kesorupert.service.TemporaryTodoService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,9 +27,11 @@ public class TodoPresenter {
     private CharmListView<Todo, LocalDate> todoListView;
 
     private TemporaryTodoService temporaryTodoService;
+    private TodoSelectionModel todoSelectionModel;
 
-    public TodoPresenter(TemporaryTodoService service) {
+    public TodoPresenter(TemporaryTodoService service, TodoSelectionModel model) {
         this.temporaryTodoService = service;
+        this.todoSelectionModel = model;
     }
 
     public void initialize() {
@@ -39,7 +43,7 @@ public class TodoPresenter {
         });
 
         todoListView.setItems(temporaryTodoService.getTodoList());
-        todoListView.setCellFactory(cell -> new TodoCell());
+        todoListView.setCellFactory(cell -> new TodoCell(todo -> finishTodo(todo)));
 
         todoListView.setPlaceholder(new Label("There are no Todos yet"));
 
@@ -49,6 +53,10 @@ public class TodoPresenter {
                     showAddTodoDialog();
                 });
         floatingActionButton.showOn(this.todoView);
+    }
+
+    public void finishTodo(Todo todo){
+        todo.finishTodo();
     }
 
     public void showAddTodoDialog() {

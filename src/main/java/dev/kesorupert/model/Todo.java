@@ -35,6 +35,10 @@ public class Todo {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    public void finishTodo() {
+        this.state = State.DONE;
         this.finishDate = LocalDate.now();
     }
 

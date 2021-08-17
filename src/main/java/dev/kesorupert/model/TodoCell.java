@@ -7,20 +7,24 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 public class TodoCell extends CharmListCell<Todo> {
 
     private final ListTile listTile;
     private Todo currentTodoItem;
 
-    public TodoCell(){
+    public TodoCell(Consumer<Todo> edit){
         listTile = new ListTile();
 
         Button checkButton = MaterialDesignIcon.CHECK.button();
-        checkButton.setOnAction(e -> System.out.println("check button is pressed"));
-//        HBox buttonBar = new HBox(checkButton);
-//        buttonBar.setAlignment(Pos.CENTER_RIGHT);
+        checkButton.setStyle("-fx-text-fill:green;");
+        checkButton.setOnAction(e -> edit.accept(currentTodoItem));
+        HBox buttonBar = new HBox(checkButton);
+        buttonBar.setAlignment(Pos.CENTER_RIGHT);
 
-        listTile.setSecondaryGraphic(checkButton);
+        listTile.setSecondaryGraphic(buttonBar);
     }
 
     @Override

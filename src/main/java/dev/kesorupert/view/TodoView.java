@@ -1,6 +1,7 @@
 package dev.kesorupert.view;
 
 import com.gluonhq.charm.glisten.mvc.View;
+import dev.kesorupert.model.TodoSelectionModel;
 import dev.kesorupert.service.TemporaryTodoService;
 import javafx.fxml.FXMLLoader;
 
@@ -11,9 +12,10 @@ public class TodoView extends View {
     public static View getView() {
         try {
             TemporaryTodoService service = new TemporaryTodoService();
+            TodoSelectionModel todoSelectionModel = new TodoSelectionModel();
 
             FXMLLoader loader = new FXMLLoader(TodoView.class.getResource("todo.fxml"));
-            TodoPresenter todoPresenter = new TodoPresenter(service);
+            TodoPresenter todoPresenter = new TodoPresenter(service, todoSelectionModel);
             loader.setController(todoPresenter);
             View view = loader.load();
             return view;
